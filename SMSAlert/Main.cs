@@ -20,6 +20,8 @@ namespace SMSAlert
         string TWILIO_SID = Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID");
         string TWILIO_AUTH = Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN");
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         // Twilio provided a number; find in App.config
         string TWILIO_PHONE = ConfigurationManager.AppSettings["TWILIO_PHONE"];
 
@@ -27,7 +29,6 @@ namespace SMSAlert
 
         public Main()
         {
-
             InitializeComponent();
         }
 
@@ -45,12 +46,12 @@ namespace SMSAlert
                 var message = MessageResource.Create(
                     body: SMS_Input.Text,
                     from: new Twilio.Types.PhoneNumber(TWILIO_PHONE),
-                    to: new Twilio.Types.PhoneNumber("+16468314967")
+                    to: new Twilio.Types.PhoneNumber("+191744d23154")
                 );
             }
             catch(Twilio.Exceptions.ApiException ex)
             {
-                // Implement a logger here?
+                log.Error(ex.Message);
             }
             finally
             {
